@@ -1,0 +1,11 @@
+# 必备依赖（运行服务最小集）
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+
+# 可选依赖：启用 LangGraph 多智能体编排与大模型增强。
+# 未安装时服务自动降级为「纯规则兜底」模式，仍可独立启动。
+langgraph>=0.2
+langchain>=0.2
+langchain-openai>=0.1
+openai>=1.30

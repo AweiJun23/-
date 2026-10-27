@@ -1,0 +1,6 @@
+.card { margin: 24rpx 16rpx; }
+.row { display: flex; justify-content: space-between; align-items: center; padding: 20rpx 0; border-bottom: 1rpx solid #f2f2f2; font-size: 28rpx; }
+.row span { color: #909399; }
+.row input { text-align: right; }
+button { background: #07c160; color: #fff; border-radius: 12rpx; margin-top: 24rpx; }
+button::after { border: none; }

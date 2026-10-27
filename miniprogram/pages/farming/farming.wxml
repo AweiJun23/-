@@ -1,0 +1,33 @@
+<view class="card">
+  <view class="row"><span>批次ID</span>
+    <input placeholder="请输入批次ID" type="number" value="{{batchId}}" bindinput="onInput" data-k="batchId" />
+  </view>
+  <view class="row"><span>农事类型</span>
+    <picker mode="selector" range="{{farmingTypes}}" value="{{typeIndex}}" bindchange="onType">
+      <view>{{farmingTypes[typeIndex]}}</view>
+    </picker>
+  </view>
+  <view class="row"><span>物料名称</span>
+    <input placeholder="如 尿素/柴油/灌溉用电" value="{{materialName}}" bindinput="onInput" data-k="materialName" />
+  </view>
+  <view class="row"><span>用量</span>
+    <input placeholder="数值" type="digit" value="{{amount}}" bindinput="onInput" data-k="amount" />
+  </view>
+  <view class="row"><span>单位</span>
+    <picker mode="selector" range="{{units}}" value="{{unitIndex}}" bindchange="onUnit">
+      <view>{{units[unitIndex]}}</view>
+    </picker>
+  </view>
+  <view class="row"><span>作业日期</span>
+    <picker mode="date" value="{{workDate}}" bindchange="onDate">
+      <view>{{workDate || '请选择'}}</view>
+    </picker>
+  </view>
+  <view class="row"><span>作业面积(亩)</span>
+    <input placeholder="数值" type="digit" value="{{areaMu}}" bindinput="onInput" data-k="areaMu" />
+  </view>
+  <view class="row"><span>备注</span>
+    <input placeholder="选填" value="{{remark}}" bindinput="onInput" data-k="remark" />
+  </view>
+  <button class="btn-primary" loading="{{submitting}}" bindtap="submit">提交农事记录</button>
+</view>

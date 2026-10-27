@@ -1,0 +1,46 @@
+# 基础设施编排（仅含中间件）。Java 微服务在本机以“单机演示模式”直接运行，
+# 见 RUN.md。若要在 Docker 中完整运行微服务，可在此基础上扩展。
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: agri-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: agri_trace
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d:ro
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p123456"]
+      interval: 10s
+      retries: 10
+
+  redis:
+    image: redis:7
+    container_name: agri-redis
+    ports:
+      - "6379:6379"
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: agri-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./sql/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+
+  nacos:
+    image: nacos/nacos-server:v2.2.3
+    container_name: agri-nacos
+    environment:
+      MODE: standalone
+      NACOS_AUTH_ENABLE: "false"
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"

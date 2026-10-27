@@ -1,0 +1,21 @@
+{
+  "name": "trace-web-admin",
+  "version": "1.0.0",
+  "description": "城乡农品轻量溯源与碳足迹存证系统 - 收购商 Web 后台",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "element-plus": "^2.7.0",
+    "vue": "^3.4.0",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "vite": "^5.2.0"
+  }
+}

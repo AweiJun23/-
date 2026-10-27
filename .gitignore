@@ -1,0 +1,29 @@
+# 依赖 / 构建产物
+node_modules/
+dist/
+build/
+.idea/
+.vscode/
+target/
+.gradle/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+
+# 环境变量 / 密钥
+.env
+*.local
+
+# 日志 / 临时
+*.log
+.DS_Store
+.tmp/

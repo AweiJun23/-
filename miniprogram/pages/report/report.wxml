@@ -1,0 +1,40 @@
+<view class="card">
+  <view class="row"><span>批次编号</span>
+    <input placeholder="请输入批次编号" value="{{batchNo}}" bindinput="onInput" />
+  </view>
+  <button class="btn-primary" loading="{{loading}}" bindtap="load">查询溯源与碳报告</button>
+  <button style="margin-top:16rpx" bindtap="loadSubsidy" wx:if="{{trace}}">查看补贴申报材料</button>
+</view>
+
+<block wx:if="{{trace}}">
+  <view class="card">
+    <view class="title">{{trace.productName}}</view>
+    <view class="row"><span>产地</span><b>{{trace.originProvince}}{{trace.originCity}}{{trace.originDetail}}</b></view>
+    <view class="row"><span>批次验真</span><b class="{{trace.batchVerified ? 'tag-ok' : 'tag-no'}}">{{trace.batchVerified ? '已上链' : '未验真'}}</b></view>
+  </view>
+
+  <view class="card" wx:if="{{trace.carbonReport}}">
+    <view class="title">碳足迹标签</view>
+    <view class="row"><span>总排放(kgCO2e)</span><b>{{trace.carbonReport.totalEmission}}</b></view>
+    <view class="row"><span>单位排放(kgCO2e/kg)</span><b>{{trace.carbonReport.unitEmission}}</b></view>
+    <view class="row"><span>报告存证</span><b class="{{trace.carbonVerified ? 'tag-ok' : 'tag-no'}}">{{trace.carbonVerified ? '已存证' : '未存证'}}</b></view>
+    <view class="sub" style="margin-top:12rpx">AI 低碳建议：{{trace.carbonReport.aiAdvice}}</view>
+  </view>
+
+  <view class="card">
+    <view class="title">农事记录时间线</view>
+    <view wx:for="{{trace.farmingList}}" wx:key="recordId" style="padding:12rpx 0;border-bottom:1rpx solid #f2f2f2">
+      <view style="font-weight:600">{{item.farmingTypeDesc || item.farmingType}} · {{item.materialName}} {{item.amount}}{{item.unit}}</view>
+      <view class="sub">{{item.workDate}}｜AI校验：{{item.checkStatus}}</view>
+    </view>
+    <view wx:if="{{!trace.farmingList.length}}" class="sub">暂无农事记录</view>
+  </view>
+</block>
+
+<view class="card" wx:if="{{subsidy}}">
+  <view class="title">补贴申报材料</view>
+  <view class="sub">{{subsidy.title}}</view>
+  <scroll-view scroll-y style="max-height:600rpx;margin-top:12rpx">
+    <view class="md">{{subsidy.contentMd}}</view>
+  </scroll-view>
+</view>

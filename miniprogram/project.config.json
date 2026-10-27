@@ -1,0 +1,15 @@
+{
+  "description": "城乡农品轻量溯源与碳足迹存证系统 - 农户端微信小程序",
+  "packOptions": { "ignore": [] },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.0.0",
+  "appid": "touristappid",
+  "projectname": "trace-miniprogram"
+}

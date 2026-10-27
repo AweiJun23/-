@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>农户注册 · 城乡农品溯源</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(160deg, #0b3d2e 0%, #07c160 100%);
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif; color: #303133;
+  }
+  .phone {
+    width: 380px; max-width: 94vw; background: #fff; border-radius: 20px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.28);
+  }
+  .hero {
+    background: linear-gradient(135deg, #07c160, #0aa858);
+    color: #fff; padding: 30px 24px 24px; text-align: center;
+  }
+  .hero .logo { font-size: 40px; line-height: 1; }
+  .hero h1 { margin: 12px 0 4px; font-size: 20px; }
+  .hero p { margin: 0; font-size: 12px; opacity: .9; }
+  .body { padding: 24px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: block; font-size: 13px; color: #606266; margin-bottom: 6px; }
+  .field label em { color: #f56c6c; font-style: normal; margin-right: 2px; }
+  .field input, .field select {
+    width: 100%; height: 44px; border: 1px solid #dcdfe6; border-radius: 10px;
+    padding: 0 14px; font-size: 15px; outline: none; transition: border-color .15s;
+    background: #fff; font-family: inherit;
+  }
+  .field input:focus, .field select:focus { border-color: #07c160; }
+  .btn {
+    width: 100%; height: 48px; border: none; border-radius: 10px; cursor: pointer;
+    background: #07c160; color: #fff; font-size: 16px; font-weight: 600; margin-top: 4px;
+  }
+  .btn:disabled { opacity: .6; cursor: not-allowed; }
+  .btn.ghost {
+    background: #fff; color: #07c160; border: 1px solid #07c160; margin-top: 10px; font-weight: 500;
+  }
+  .msg { margin-top: 14px; font-size: 13px; border-radius: 8px; padding: 10px 12px; display: none; line-height: 1.6; }
+  .msg.err { display: block; background: #fef0f0; color: #f56c6c; border: 1px solid #fde2e2; }
+  .msg.ok  { display: block; background: #f0f9eb; color: #229954; border: 1px solid #d6ecbe; }
+  .tip { text-align: center; color: #909399; font-size: 12px; margin-top: 14px; }
+  .tip a { color: #07c160; text-decoration: none; font-weight: 600; }
+  .foot { text-align: center; color: #c0c4cc; font-size: 11px; padding: 0 0 18px; }
+</style>
+</head>
+<body>
+  <div class="phone">
+    <div class="hero">
+      <div class="logo">🌱</div>
+      <h1>农户注册</h1>
+      <p>注册后即可录入农事记录、参与碳足迹存证</p>
+    </div>
+    <div class="body">
+      <div class="field">
+        <label><em>*</em>账号</label>
+        <input id="username" placeholder="3~20 位字母数字，如 farmer10" maxlength="20" />
+      </div>
+      <div class="field">
+        <label><em>*</em>密码</label>
+        <input id="password" type="password" placeholder="至少 6 位" />
+      </div>
+      <div class="field">
+        <label><em>*</em>确认密码</label>
+        <input id="password2" type="password" placeholder="再次输入密码" />
+      </div>
+      <div class="field">
+        <label><em>*</em>姓名</label>
+        <input id="realName" placeholder="真实姓名，如 张建国" maxlength="20" />
+      </div>
+      <div class="field">
+        <label>手机号</label>
+        <input id="phone" placeholder="选填" maxlength="11" />
+      </div>
+      <div class="field">
+        <label>所属合作社</label>
+        <select id="coopId">
+          <option value="1">示范合作社（1 号社）</option>
+        </select>
+      </div>
+      <button id="btn" class="btn" onclick="doRegister()">注 册</button>
+      <div id="msg" class="msg"></div>
+      <p class="tip">已有账号？<a href="/farmer-login.html">返回登录</a></p>
+    </div>
+    <div class="foot">数据经联盟链存证 · 扫码可验真</div>
+  </div>
+
+<script>
+  // 留空 = 走当前站点同源 /api（H5 dev-server 代理到网关 9000，避免跨域问题）
+  var API = "";
+  function $(id){ return document.getElementById(id); }
+  function show(type, text){ var el = $('msg'); el.className = 'msg ' + type; el.innerHTML = text; }
+
+  async function doRegister(){
+    var username = $('username').value.trim();
+    var password = $('password').value;
+    var password2 = $('password2').value;
+    var realName = $('realName').value.trim();
+    var phone = $('phone').value.trim();
+    var coopId = parseInt($('coopId').value, 10);
+    var btn = $('btn');
+
+    if(!/^[a-zA-Z0-9_]{3,20}$/.test(username)){ show('err','账号需为 3~20 位字母、数字或下划线'); return; }
+    if(!password || password.length < 6){ show('err','密码至少 6 位'); return; }
+    if(password !== password2){ show('err','两次输入的密码不一致'); return; }
+    if(!realName){ show('err','请填写姓名'); return; }
+    if(phone && !/^1\d{10}$/.test(phone)){ show('err','手机号格式不正确'); return; }
+
+    btn.disabled = true; btn.textContent = '注册中…';
+    try{
+      var res = await fetch(API + '/api/auth/register', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          username: username, password: password, role: 'FARMER',
+          realName: realName, phone: phone || null, coopId: coopId, channel: 'APP'
+        })
+      });
+      var j = await res.json();
+      if(j && j.code === 200){
+        show('ok','✅ 注册成功！新账号：<b>' + username + '</b><br>即将跳转登录页…');
+        setTimeout(function(){ location.href = '/farmer-login.html?u=' + encodeURIComponent(username); }, 1500);
+      } else {
+        show('err','注册失败：' + ((j && (j.msg || j.message)) || '请稍后重试'));
+      }
+    }catch(e){
+      show('err','无法连接后端（' + API + '）。请确认微服务/网关已启动。<br>错误：' + (e && e.message ? e.message : e));
+    }finally{
+      btn.disabled = false; btn.textContent = '注 册';
+    }
+  }
+  // 登录页带过来的账号回填
+  (function(){
+    var u = new URLSearchParams(location.search).get('u');
+    if(u) $('username').value = u;
+  })();
+</script>
+</body>
+</html>

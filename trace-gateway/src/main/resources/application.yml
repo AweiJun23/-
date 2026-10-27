@@ -1,0 +1,93 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: trace-gateway
+  main:
+    web-application-type: reactive
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+        server-addr: ${NACOS_ADDR:127.0.0.1:8848}
+        namespace: ${NACOS_NAMESPACE:public}
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: true
+            max-age: 3600
+      routes:
+        - id: trace-auth
+          uri: http://127.0.0.1:8081
+          predicates:
+            - Path=/api/auth/**
+        - id: trace-farming
+          uri: http://127.0.0.1:8082
+          predicates:
+            - Path=/api/farming/**
+        - id: trace-batch
+          uri: http://127.0.0.1:8083
+          predicates:
+            - Path=/api/batch/**,/api/trace/**
+        - id: trace-carbon
+          uri: http://127.0.0.1:8084
+          predicates:
+            - Path=/api/carbon/**
+        - id: trace-chain
+          uri: http://127.0.0.1:8085
+          predicates:
+            - Path=/api/chain/**
+        - id: trace-agent
+          uri: http://127.0.0.1:8086
+          predicates:
+            - Path=/api/agent/**
+        - id: trace-report
+          uri: http://127.0.0.1:8087
+          predicates:
+            - Path=/api/report/**
+        - id: trace-file
+          uri: http://127.0.0.1:8088
+          predicates:
+            - Path=/api/file/**,/files/**
+
+  # 网关限流依赖 Redis（令牌桶）
+  redis:
+    host: ${REDIS_HOST:127.0.0.1}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+    database: 2
+
+trace:
+  jwt:
+    secret: ${JWT_SECRET:agriTraceCarbonFootprintNotaryDefaultSecretKey2026}
+  gateway:
+    # 免鉴权路径白名单
+    whitelist:
+      - /api/auth/login
+      - /api/auth/register
+      - /api/auth/wechat/login
+      - /api/trace/public/**
+      - /api/batch/trace/**
+      - /api/batch/qr/**
+      - /api/chain/verify
+      - /api/file/public/**
+      - /files/**
+      - /actuator/**
+    # 限流：每秒令牌生成数 / 桶容量
+    rate-limit:
+      replenish-rate: 20
+      burst-capacity: 50
+
+logging:
+  level:
+    com.trace: info
+    org.springframework.cloud.gateway: info

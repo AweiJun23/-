@@ -1,0 +1,9 @@
+page { background: #eef2f5; color: #303133; font-family: -apple-system, 'PingFang SC', sans-serif; }
+.btn-primary { background: #07c160; color: #fff; border-radius: 8px; }
+.card { background: #fff; margin: 16rpx; border-radius: 16rpx; padding: 24rpx; }
+.title { font-size: 32rpx; font-weight: 600; }
+.sub { color: #909399; font-size: 24rpx; }
+.row { display: flex; justify-content: space-between; padding: 12rpx 0; font-size: 28rpx; border-bottom: 1rpx solid #f2f2f2; }
+.row span { color: #909399; }
+.tag-ok { color: #07c160; }
+.tag-no { color: #f56c6c; }

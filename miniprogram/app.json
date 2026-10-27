@@ -1,0 +1,15 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/farming/farming",
+    "pages/report/report"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#07c160",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "农品溯源 · 农户端",
+    "backgroundColor": "#eef2f5"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

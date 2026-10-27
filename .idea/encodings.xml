@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-agent/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-agent/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-batch/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-batch/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-carbon/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-carbon/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-chain/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-chain/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-farming/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-farming/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-file/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-file/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-report/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/trace-report/src/main/resources" charset="UTF-8" />
+  </component>
+</project>
